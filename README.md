@@ -1,4 +1,4 @@
 # ItemZilla
 
 ## [V1]
--Launched ItemZilla with Test Paymentesefsfesf
+-Launched ItemZilla with Test Payment
