@@ -44,7 +44,7 @@ export default function HomePage() {
         setDealItems(jsonData.filter((item) => item.discount >= 20));
         setOriginalItems(
           jsonData.filter(
-            (item) => item.Seller.ID === "6598e112ab5418611735c7e3"
+            (item) => item.Seller.ID === "65a52a942f33053aa8c57633"
           )
         );
       } catch (error) {

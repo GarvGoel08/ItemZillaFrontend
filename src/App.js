@@ -9,6 +9,8 @@ import SignUp from "./components/Signup";
 import ItemViewer from "./components/ItemViewer";
 import Cart from "./components/Cart";
 import Checkout from "./components/Checkout";
+import AddItem from "./components/AddItem";
+import OTP from "./components/OTP";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route path="/SignUp" element={<SignUp/>} />
           <Route path="/Cart" element={<Cart/>} />
           <Route path="/Checkout" element={<Checkout/>} />
+          <Route path="/Seller" element={<AddItem/>} />
+          <Route path="/OTP" element={<OTP/>} />
         </Routes>
         <div className="NotificationDiv Collapsed">HWLLo</div>
       </Router>

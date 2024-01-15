@@ -145,7 +145,7 @@ async function sendPaymentInfoToServer(payment_id, signature,orderID, dataa) {
       <div className="col-7 CheckOutDivHeader">
         <b>Billing Details</b>
         <div className="inputs">
-          <input type="text" class="form-control form-ow" placeholder="Name" />
+          <input type="text" className="form-control form-ow" placeholder="Name" />
           <textarea
             rows={4}
             type="text"
@@ -155,27 +155,27 @@ async function sendPaymentInfoToServer(payment_id, signature,orderID, dataa) {
           />
           <input
             type="text"
-            class="form-control form-ow"
+            className="form-control form-ow"
             placeholder="Apartment, floor, etc. (optional)"
           />
           <input
             type="text"
-            class="form-control form-ow"
+            className="form-control form-ow"
             placeholder="Town/City"
           />
           <input
             type="text"
-            class="form-control form-ow"
+            className="form-control form-ow"
             placeholder="Pincode"
           />
           <input
             type="text"
-            class="form-control form-ow"
+            className="form-control form-ow"
             placeholder="Phone Number"
           />
           <input
             type="email"
-            class="form-control form-ow"
+            className="form-control form-ow"
             placeholder="Email Address"
           />
         </div>

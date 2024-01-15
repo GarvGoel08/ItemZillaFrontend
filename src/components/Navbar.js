@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 
 export default function Navbar() {
   const pathname = useLocation().pathname;
-  const authtoken = localStorage.getItem("tog-auth-token");
+  const authtoken = localStorage.getItem("iz-auth-token");
   const baseURL = "https://itemzillabackend.onrender.com/";
   const [Categories, setCategories] = useState([]);
   useEffect(() => {
@@ -36,12 +36,12 @@ export default function Navbar() {
           <h1>ItemZilla</h1>
           <nav style={{ padding: "0 0px 0 176px" }}>
             <ul>
-              <li class={`${pathname === "/" ? "selected" : ""}`}>
+              <li className={`${pathname === "/" ? "selected" : ""}`}>
                 <Link to="/">Home</Link>
               </li>
-              <li class={`${pathname === "/Categories" ? "selected" : ""}`}>
+              <li className={`${pathname === "/Categories" ? "selected" : ""}`}>
                 <a
-                  class="nav-link dropdown-toggle"
+                  className="nav-link dropdown-toggle"
                   href="#"
                   role="button"
                   data-bs-toggle="dropdown"
@@ -49,19 +49,19 @@ export default function Navbar() {
                 >
                   Categories
                 </a>
-                <ul class="dropdown-menu">
+                <ul className="dropdown-menu">
                   <li>
                     {Categories.map((item) => (
                       <>
                         <a
-                          class="dropdown-item"
+                          className="dropdown-item"
                           href={`/Categories/${item.categoryName}`}
                         >
                           {item.categoryName}
                         </a>
 
                         <li>
-                          <hr class="dropdown-divider" />
+                          <hr className="dropdown-divider" />
                         </li>
                       </>
                     ))}
@@ -69,14 +69,14 @@ export default function Navbar() {
                 </ul>
               </li>
               <li
-                class={`${pathname === "/Login" ? "selected" : ""} ${
+                className={`${pathname === "/Login" ? "selected" : ""} ${
                   authtoken ? "Collapsed" : ""
                 }`}
               >
                 <Link to="/Login">Log In</Link>
               </li>
               <li
-                class={`${pathname === "/SignUp" ? "selected" : ""} ${
+                className={`${pathname === "/SignUp" ? "selected" : ""} ${
                   authtoken ? "Collapsed" : ""
                 }`}
               >

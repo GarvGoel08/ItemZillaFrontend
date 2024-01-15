@@ -114,8 +114,8 @@ export default function Login() {
           flexGrow: 1,
         }}
       >
-        <div class="spinner-border text-primary "  role="status" >
-          <span class="visually-hidden">Loading...</span>
+        <div className="spinner-border text-primary "  role="status" >
+          <span className="visually-hidden">Loading...</span>
         </div>
       </div>
       <div
