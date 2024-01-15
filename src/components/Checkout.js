@@ -5,7 +5,7 @@ export default function Checkout() {
   const [cart, setCart] = useState(
     JSON.parse(localStorage.getItem("cart")) || []
   );
-  const baseURL = "http://localhost:5000/";
+  const baseURL = "https://itemzillabackend.onrender.com/";
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("cod");
   const authtoken = localStorage.getItem("iz-auth-token");
   const [subtotal, setSubtotal] = useState(0);

@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import ItemBox from "./ItemBox";
 
 export default function ItemViewer() {
-  const baseURL = "http://localhost:5000/";
+  const baseURL = "https://itemzillabackend.onrender.com/";
   const [data, setData] = useState([]);
   const [category, setCategory] = useState([]);
   const [items, setItems] = useState([]);

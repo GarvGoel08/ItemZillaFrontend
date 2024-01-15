@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Cart() {
   const [data, setData] = useState([]);
-  const baseURL = "http://localhost:5000/";
+  const baseURL = "https://itemzillabackend.onrender.com/";
   const [cart, setCart] = useState(
     JSON.parse(localStorage.getItem("cart")) || []
   );

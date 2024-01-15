@@ -7,7 +7,7 @@ export default function HomePage() {
   const [Categories, setCategories] = useState([]);
   const [DealItems, setDealItems] = useState([]);
   const [OriginalItems, setOriginalItems] = useState([]);
-  const baseURL = "http://localhost:5000/";
+  const baseURL = "https://itemzillabackend.onrender.com/";
   useEffect(() => {
     const fetchData = async () => {
       try {

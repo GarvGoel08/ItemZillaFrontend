@@ -6,7 +6,7 @@ export default function CategoryFilter() {
   const {categoryName} = useParams();
 
   const [Items, setItems] = useState([]);
-  const baseURL = "http://localhost:5000/";
+  const baseURL = "https://itemzillabackend.onrender.com/";
   useEffect(() => {
     const fetchData = async () => {
       try {

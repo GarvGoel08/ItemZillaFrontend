@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const authtoken = localStorage.getItem("iz-auth-token");
-  const baseURL = "http://localhost:5000/";
+  const baseURL = "https://itemzillabackend.onrender.com/";
   const [name, setName] = useState("");
   const [Pass, setPass] = useState("");
   const Navigate = useNavigate();

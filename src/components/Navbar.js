@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 export default function Navbar() {
   const pathname = useLocation().pathname;
   const authtoken = localStorage.getItem("tog-auth-token");
-  const baseURL = "http://localhost:5000/";
+  const baseURL = "https://itemzillabackend.onrender.com/";
   const [Categories, setCategories] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
