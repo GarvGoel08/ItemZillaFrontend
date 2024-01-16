@@ -11,10 +11,16 @@ export default function Checkout() {
   const [subtotal, setSubtotal] = useState(0);
   const [addresses, setAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState("");
+  const [addressName, setAddressName] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+  const [apartment, setApartment] = useState("");
+  const [town, setTown] = useState("");
+  const [pincode, setPincode] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
+
   useEffect(() => {
-    console.log(window);
-    // Calculate subtotal when the component mounts or when the cart changes
     let total = 0;
     cart.forEach((item) => {
       total +=
@@ -24,7 +30,6 @@ export default function Checkout() {
   }, [cart]);
 
   useEffect(() => {
-    // Fetch user addresses when the component mounts
     fetch(`${baseURL}api/address/Get`, {
       method: "GET",
       headers: {
@@ -35,54 +40,82 @@ export default function Checkout() {
       .then((response) => response.json())
       .then((data) => {
         setAddresses(data);
-        // Set the first address as the selected address by default
-        if (data.length > 0) {
-          setSelectedAddress(data[0]._id);
-        }
       })
       .catch((error) => {
         console.error("Error fetching addresses:", error);
       });
   }, []);
 
-  // Assuming you have a function to make a POST request
-async function sendPaymentInfoToServer(payment_id, signature,orderID, dataa) {
-  try {
-    const response = await fetch(`${baseURL}api/orders/paymentverification`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        "auth-token": authtoken,
-        "razorpay_payment_id": payment_id,
-        "razorpay_signature": signature,
-        "razorpay_order_id": orderID
-      },
-      body: dataa,
-    })
-    if (response.status === 201){
-      navigate('/');
-      localStorage.removeItem("cart");
-      alert('Order Placed Successfully');
+  async function sendPaymentInfoToServer(payment_id, signature, orderID, dataa) {
+    try {
+      const response = await fetch(
+        `${baseURL}api/orders/paymentverification`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": authtoken,
+            "razorpay_payment_id": payment_id,
+            "razorpay_signature": signature,
+            "razorpay_order_id": orderID,
+          },
+          body: dataa,
+        }
+      );
+      if (response.status === 201) {
+        navigate('/');
+        localStorage.removeItem("cart");
+        alert('Order Placed Successfully');
+      }
+    } catch (error) {
+      console.error('Error sending payment information to the server:', error);
     }
-  } catch (error) {
-    console.error('Error sending payment information to the server:', error);
   }
-}
-
-
 
   const handlePaymentMethodChange = (event) => {
     setSelectedPaymentMethod(event.target.value);
   };
 
-  const handlePlaceOrder = () => {
+  const saveAddress = async () => {
+    try {
+      const response = await fetch(`${baseURL}api/address/Add`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": authtoken,
+        },
+        body: JSON.stringify({
+          AddressName: addressName,
+          StreetAdress: streetAddress,
+          Apartment: apartment,
+          Town: town,
+          Pincode: pincode,
+          Mobile: mobile,
+          Email: email,
+        }),
+      });
+
+      if (response.status === 200) {
+        // Address saved successfully, you can fetch addresses again if needed.
+        console.log("Address saved successfully");
+      } else {
+        // Handle error if address save fails.
+        console.error("Error saving address:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error saving address:", error);
+    }
+  };
+
+  const handlePlaceOrder = async () => {
+    await saveAddress();
+
     const dataaaa = JSON.stringify({
       items: cart,
       addressId: selectedAddress,
       paymentMethod: selectedPaymentMethod,
     });
-    // Make API request to create an order based on the selectedPaymentMethod
-    // Replace 'USER_ID' and 'RAZORPAY_PUBLIC_KEY' with actual values
+
     fetch(`${baseURL}api/orders/create-order`, {
       method: "POST",
       headers: {
@@ -94,26 +127,29 @@ async function sendPaymentInfoToServer(payment_id, signature,orderID, dataa) {
       .then((response) => response.json())
       .then((data) => {
         if (selectedPaymentMethod === "razorpay") {
-          console.log("Razorpay Order:", data.razorpayOrder);
           const options = {
-            key: "rzp_test_nROCwrFT4NjujG", // Replace with your actual Razorpay key
-            amount: Math.round(data.razorpayOrder.amount * 100), // Razorpay amount is in paisa (1 INR = 100 paisa)
+            key: "rzp_test_nROCwrFT4NjujG",
+            amount: Math.round(data.razorpayOrder.amount * 100),
             currency: "INR",
             name: "ItemZilla",
             description: "Payment for your order",
             order_id: data.razorpayOrder.id,
             handler: function (response) {
-              console.log(response);
-
               const razorpay_payment_id = response.razorpay_payment_id;
               const razorpay_signature = response.razorpay_signature;
-          
-              if (response.razorpay_payment_id && response.razorpay_signature) {
-                // Payment was successful, call the function to send payment information to the server
-                sendPaymentInfoToServer(razorpay_payment_id, razorpay_signature,data.razorpayOrder.id, dataaaa);
+
+              if (
+                response.razorpay_payment_id &&
+                response.razorpay_signature
+              ) {
+                sendPaymentInfoToServer(
+                  razorpay_payment_id,
+                  razorpay_signature,
+                  data.razorpayOrder.id,
+                  dataaaa
+                );
               } else {
-                // Payment was not successful, handle accordingly
-                console.error('Razorpay payment not successful');
+                console.error("Razorpay payment not successful");
               }
             },
             prefill: {
@@ -125,7 +161,7 @@ async function sendPaymentInfoToServer(payment_id, signature,orderID, dataa) {
               address: "User Address",
             },
             theme: {
-              color: "#F37254", 
+              color: "#F37254",
             },
           };
 
@@ -145,43 +181,58 @@ async function sendPaymentInfoToServer(payment_id, signature,orderID, dataa) {
       <div className="col-7 CheckOutDivHeader">
         <b>Billing Details</b>
         <div className="inputs">
-          <input type="text" className="form-control form-ow" placeholder="Name" />
+          <input
+            type="text"
+            className="form-control form-ow"
+            placeholder="Name"
+          />
           <textarea
             rows={4}
             type="text"
             className="form-control form-ow"
             id="Description"
             placeholder="Street Address"
+            value={streetAddress}
+            onChange={(e) => setStreetAddress(e.target.value)}
           />
           <input
             type="text"
             className="form-control form-ow"
             placeholder="Apartment, floor, etc. (optional)"
+            value={apartment}
+            onChange={(e) => setApartment(e.target.value)}
           />
           <input
             type="text"
             className="form-control form-ow"
             placeholder="Town/City"
+            value={town}
+            onChange={(e) => setTown(e.target.value)}
           />
           <input
             type="text"
             className="form-control form-ow"
             placeholder="Pincode"
+            value={pincode}
+            onChange={(e) => setPincode(e.target.value)}
           />
           <input
             type="text"
             className="form-control form-ow"
             placeholder="Phone Number"
+            value={mobile}
+            onChange={(e) => setMobile(e.target.value)}
           />
           <input
             type="email"
             className="form-control form-ow"
             placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
       </div>
 
-      {/* Order Summary Section */}
       <div className="col-5">
         <div className="CheckOutRightDiv">
           <div className="TotalPriceSubDiv1" style={{ marginTop: "60px" }}>
@@ -198,7 +249,6 @@ async function sendPaymentInfoToServer(payment_id, signature,orderID, dataa) {
               <label className="mx-2">{`₹‎${subtotal.toFixed(2)}`}</label>
             </div>
 
-            {/* Address Section */}
             <div className="mb-3">
               <label htmlFor="addressSelect" className="form-label">
                 Select Address
@@ -218,7 +268,6 @@ async function sendPaymentInfoToServer(payment_id, signature,orderID, dataa) {
               </select>
             </div>
 
-            {/* Payment Method Section */}
             <div>
               <div className="form-check form-m">
                 <input
@@ -249,7 +298,6 @@ async function sendPaymentInfoToServer(payment_id, signature,orderID, dataa) {
                 </label>
               </div>
 
-              {/* Proceed to Checkout Button */}
               <button className="PlaceOrderButton" onClick={handlePlaceOrder}>
                 Proceed to checkout
               </button>
