@@ -10,7 +10,7 @@ export default function Checkout() {
   const authtoken = localStorage.getItem("iz-auth-token");
   const [subtotal, setSubtotal] = useState(0);
   const [addresses, setAddresses] = useState([]);
-  const [selectedAddress, setSelectedAddress] = useState("");
+  const [selectedAddress, setSelectedAddress] = useState(null);
   const [addressName, setAddressName] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [apartment, setApartment] = useState("");
@@ -39,6 +39,8 @@ export default function Checkout() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
+
         setAddresses(data);
       })
       .catch((error) => {
@@ -46,29 +48,44 @@ export default function Checkout() {
       });
   }, []);
 
-  async function sendPaymentInfoToServer(payment_id, signature, orderID, dataa) {
+  const OptionSelect = (address) => {
+    console.log(address);
+    if (address != null) {
+      setAddressName(address.AddressName);
+      setStreetAddress(address.StreetAdress);
+      setApartment(address.Apartment);
+      setTown(address.Town);
+      setPincode(address.Pincode);
+      setMobile(address.Mobile);
+      setEmail(address.Email);
+    }
+  };
+
+  async function sendPaymentInfoToServer(
+    payment_id,
+    signature,
+    orderID,
+    dataa
+  ) {
     try {
-      const response = await fetch(
-        `${baseURL}api/orders/paymentverification`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token": authtoken,
-            "razorpay_payment_id": payment_id,
-            "razorpay_signature": signature,
-            "razorpay_order_id": orderID,
-          },
-          body: dataa,
-        }
-      );
+      const response = await fetch(`${baseURL}api/orders/paymentverification`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": authtoken,
+          razorpay_payment_id: payment_id,
+          razorpay_signature: signature,
+          razorpay_order_id: orderID,
+        },
+        body: dataa,
+      });
       if (response.status === 201) {
-        navigate('/');
+        navigate("/");
         localStorage.removeItem("cart");
-        alert('Order Placed Successfully');
+        alert("Order Placed Successfully");
       }
     } catch (error) {
-      console.error('Error sending payment information to the server:', error);
+      console.error("Error sending payment information to the server:", error);
     }
   }
 
@@ -76,8 +93,52 @@ export default function Checkout() {
     setSelectedPaymentMethod(event.target.value);
   };
 
+  const isEmailValid = (email) => {
+    // Simple email validation using a regular expression
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateAddressFields = () => {
+    const errors = [];
+  
+    if (addressName.length < 3) {
+      errors.push("Name should be at least 3 characters");
+    }
+  
+    if (streetAddress.length < 3) {
+      errors.push("Street Address should be at least 3 characters");
+    }
+  
+    if (town.length < 3) {
+      errors.push("Town should be at least 3 characters");
+    }
+  
+    if (!pincode || pincode.toString().length < 3) {
+      errors.push("Pincode should be at least 3 characters");
+    }
+  
+    if (!mobile || mobile.toString().length !== 10) {
+      errors.push("Mobile number should be exactly 10 digits");
+    }
+  
+    if (!isEmailValid(email)) {
+      errors.push("Invalid email address");
+    }
+  
+    return errors;
+  };
+  
+
   const saveAddress = async () => {
     try {
+      const errors = validateAddressFields();
+
+      if (Object.keys(errors).length > 0) {
+        alert(errors[0]);
+        return;
+      }
+
       const response = await fetch(`${baseURL}api/address/Add`, {
         method: "POST",
         headers: {
@@ -96,10 +157,10 @@ export default function Checkout() {
       });
 
       if (response.status === 200) {
-        // Address saved successfully, you can fetch addresses again if needed.
         console.log("Address saved successfully");
+        const data = await response.json();
+        return data;
       } else {
-        // Handle error if address save fails.
         console.error("Error saving address:", response.statusText);
       }
     } catch (error) {
@@ -108,14 +169,22 @@ export default function Checkout() {
   };
 
   const handlePlaceOrder = async () => {
-    await saveAddress();
+    const errors = validateAddressFields();
+
+    if (Object.keys(errors).length > 0) {
+      alert(errors);
+      return;
+    }
+
+    const AddressJSON = await saveAddress();
+    console.log(AddressJSON);
 
     const dataaaa = JSON.stringify({
       items: cart,
-      addressId: selectedAddress,
+      addressId: AddressJSON._id,
       paymentMethod: selectedPaymentMethod,
     });
-
+    console.log(dataaaa);
     fetch(`${baseURL}api/orders/create-order`, {
       method: "POST",
       headers: {
@@ -138,10 +207,7 @@ export default function Checkout() {
               const razorpay_payment_id = response.razorpay_payment_id;
               const razorpay_signature = response.razorpay_signature;
 
-              if (
-                response.razorpay_payment_id &&
-                response.razorpay_signature
-              ) {
+              if (response.razorpay_payment_id && response.razorpay_signature) {
                 sendPaymentInfoToServer(
                   razorpay_payment_id,
                   razorpay_signature,
@@ -185,6 +251,8 @@ export default function Checkout() {
             type="text"
             className="form-control form-ow"
             placeholder="Name"
+            value={addressName}
+            onChange={(e) => setAddressName(e.target.value)}
           />
           <textarea
             rows={4}
@@ -256,9 +324,15 @@ export default function Checkout() {
               <select
                 className="form-select"
                 id="addressSelect"
-                onChange={(e) => setSelectedAddress(e.target.value)}
+                onChange={(e) => {
+                  setSelectedAddress(e.target.value);
+                  OptionSelect(
+                    addresses.find((address) => address._id === e.target.value)
+                  );
+                }}
                 value={selectedAddress}
               >
+                <option value={null}>AddNew</option>
                 {addresses &&
                   addresses.map((address) => (
                     <option key={address._id} value={address._id}>
