@@ -20,6 +20,10 @@ export default function Checkout(props) {
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+  if (!authtoken){
+    ShowNotif("Error:", "Please SignUp before checkout.");
+    navigate("/Login");
+  }
 
   useEffect(() => {
     let total = 0;
