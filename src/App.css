@@ -6,6 +6,16 @@ body {
 
 
 @media (max-width: 1050px) {
+  .HeightOW{
+    height: auto!important;
+  }
+  #LoginMain{
+    margin-top: 64px;
+    margin-bottom: 64px;
+  }
+  .LoginImg{
+    max-height: 90%!important;
+  }
   .checkout-100{
     width: 100%!important;
   }
@@ -661,6 +671,7 @@ nav .selected a::after {
 
 .NotifError{
   background-color: #d80707!important;
+  box-shadow: 0 0 10px rgba(216, 7, 7, 1.2);
 }
 
 @keyframes slideInUp {

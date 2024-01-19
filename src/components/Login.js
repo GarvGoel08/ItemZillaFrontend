@@ -87,7 +87,7 @@ export default function Login() {
   return (
     <div className="row row-ow">
       <div
-        className="col-6"
+        className="col-6 HeightOW"
         style={{
           background: "#CBE4E8",
           alignContent: "center",
@@ -119,7 +119,7 @@ export default function Login() {
         </div>
       </div>
       <div
-        className={`col-6 ${Loading ? "Collapsed" : ""}`}
+        className={`HeightOW col-6 ${Loading ? "Collapsed" : ""}`}
         id="LoginMain"
         style={{
           alignContent: "center",

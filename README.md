@@ -1,5 +1,8 @@
 # ItemZilla
 
+## [V1.3.1]
+-Fixed Responsiveness of Login and Signup pages
+
 ## [V1.3]
 -Fixed Responsiveness <br>
 -Added Loader<br>

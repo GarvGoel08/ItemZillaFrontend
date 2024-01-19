@@ -88,7 +88,7 @@ export default function SignUp() {
   return (
     <div className="row row-ow">
       <div
-        className="col-6"
+        className="col-6 HeightOW"
         style={{
           background: "#CBE4E8",
           alignContent: "center",
@@ -104,7 +104,7 @@ export default function SignUp() {
         />
       </div>
       <div
-        className="col-6"
+        className="col-6 HeightOW"
         id="LoginMain"
         style={{
           alignContent: "center",
