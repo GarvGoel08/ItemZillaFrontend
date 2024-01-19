@@ -6,6 +6,8 @@ export default function Navbar() {
   const authtoken = localStorage.getItem("iz-auth-token");
   const baseURL = "https://itemzillabackend.onrender.com/";
   const [Categories, setCategories] = useState([]);
+  const [cartData, setCartData] = useState([]);
+  const [cartQuantity, setCartQuantity] = useState(0);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,7 +27,34 @@ export default function Navbar() {
     };
 
     fetchData();
+    const storedCartData = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartData(storedCartData);
+
+    const totalQuantity = storedCartData.reduce(
+      (accumulator, currentItem) => accumulator + currentItem.quantity,
+      0
+    );
+    setCartQuantity(totalQuantity);
   }, []);
+  useEffect(() => {
+    const handleCartChange = (event) => {
+      const storedCartData = JSON.parse(localStorage.getItem("cart")) || [];
+      setCartData(storedCartData);
+
+      const totalQuantity = storedCartData.reduce(
+        (accumulator, currentItem) => accumulator + currentItem.quantity,
+        0
+      );
+      setCartQuantity(totalQuantity);
+    };
+
+    window.addEventListener("storage", handleCartChange);
+
+    return () => {
+      window.removeEventListener("storage", handleCartChange);
+    };
+  }, [cartQuantity]);
+
   return (
     <div>
       <div className="TopSaleBar">
@@ -49,23 +78,22 @@ export default function Navbar() {
                 >
                   Categories
                 </a>
-                <ul className="dropdown-menu">
-                  <li>
-                    {Categories.map((item) => (
-                      <>
+                <ul className="dropdown-menu" style={{width: 'auto', margin: '0', padding: '0'}}>
+                  {Categories.map((item, index) => (
+                    <React.Fragment key={index}>
+                      <li style={{textAlign: 'center', margin: '0'}}>
                         <a
-                          className="dropdown-item"
+                          className="dropdown-item" style={{padding: '8px 0'}}
                           href={`/Categories/${item.categoryName}`}
                         >
                           {item.categoryName}
                         </a>
-
-                        <li>
-                          <hr className="dropdown-divider" />
-                        </li>
-                      </>
-                    ))}
-                  </li>
+                      </li>
+                      {index < Categories.length - 1 && (
+                        <li role="separator" style={{margin: '0px 0px'}} className="dropdown-divider"></li>
+                      )}
+                    </React.Fragment>
+                  ))}
                 </ul>
               </li>
               <li
@@ -118,23 +146,27 @@ export default function Navbar() {
               className="NavbarButtons"
               style={{
                 fontSize: "14px",
-                textDecoration: 'none',
+                textDecoration: "none",
                 alignItems: "center",
                 height: "30px",
                 marginLeft: "8px",
+                position: "relative",
               }}
             >
-              <span
-                className="material-symbols-outlined"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: "100%",
-                }}
-              >
-                shopping_cart
-              </span>
+              <>
+                <span
+                  className="material-symbols-outlined"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "100%",
+                  }}
+                >
+                  shopping_cart
+                </span>
+                <div className="CartQuantiy">{cartQuantity}</div>
+              </>
             </Link>
           </form>
         </nav>

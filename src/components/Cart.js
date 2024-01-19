@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import CartItem from "./CartItem";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Cart() {
+export default function Cart(props) {
   const [data, setData] = useState([]);
   const baseURL = "https://itemzillabackend.onrender.com/";
+  const { ShowNotif } = props;
+  const navigate = useNavigate();
   const [cart, setCart] = useState(
     JSON.parse(localStorage.getItem("cart")) || []
   );
@@ -29,7 +31,19 @@ export default function Cart() {
   }, []);
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
+    window.dispatchEvent(new Event("storage"));
   }, [cart]);
+
+  if (
+    cart === null ||
+    cart.reduce(
+      (accumulator, currentItem) => accumulator + currentItem.quantity,
+      0
+    ) === 0
+  ) {
+    ShowNotif("Error:", "Cart is Empty, Please add some items before proceeding.");
+    navigate("/");
+  }
 
   const addToCart = (item) => {
     console.log(cart);
@@ -68,18 +82,18 @@ export default function Cart() {
     });
   };
   const calculateSubtotal = () => {
-  let subtotal = 0;
+    let subtotal = 0;
 
-  cart.forEach((item) => {
-    const availableStock = data.find((dataItem) => dataItem._id === item._id)?.quantity || 0;
-    const quantity = Math.min(item.quantity, availableStock);
+    cart.forEach((item) => {
+      const availableStock =
+        data.find((dataItem) => dataItem._id === item._id)?.quantity || 0;
+      const quantity = Math.min(item.quantity, availableStock);
 
-    subtotal += quantity * (item.price - (item.discount * item.price) / 100);
-  });
+      subtotal += quantity * (item.price - (item.discount * item.price) / 100);
+    });
 
-  return `₹‎${subtotal.toFixed(2)}`;
-};
-
+    return `₹‎${subtotal.toFixed(2)}`;
+  };
 
   return (
     <>
@@ -97,7 +111,7 @@ export default function Cart() {
           <b>Subtotal</b>
         </div>
       </div>
-      <div>
+      <div className="CartMainn">
         {cart.map((item) => (
           <CartItem
             key={item._id} // Make sure to add a unique key for each item

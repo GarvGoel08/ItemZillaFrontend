@@ -1,5 +1,11 @@
 # ItemZilla
 
+## [V1.3]
+-Fixed Responsiveness <br>
+-Added Loader<br>
+-Added Notification Div <br>
+-Fixed Minor bugs
+
 ## [V1.2]
 -Fixed Address not Working
 

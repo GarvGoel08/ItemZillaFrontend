@@ -25,7 +25,7 @@ export default function ItemBox(props) {
         )}
         <img
           src={`https://firebasestorage.googleapis.com/v0/b/ecommerce-95870.appspot.com/o/${ITEMJson.image}?alt=media&token=15e82622-c526-49ce-8086-a1679de0adf6`}
-          alt="Product image"
+          alt={`Product image ${imageLoaded?(""):("collapsed")}`}
           onLoad={handleImageLoad}
         />
         <button className="add-to-cart">Add To Cart</button>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function Checkout() {
+export default function Checkout(props) {
+  const { ShowNotif } = props;
   const [cart, setCart] = useState(
     JSON.parse(localStorage.getItem("cart")) || []
   );
@@ -82,10 +83,14 @@ export default function Checkout() {
       if (response.status === 201) {
         navigate("/");
         localStorage.removeItem("cart");
-        alert("Order Placed Successfully");
+        window.dispatchEvent(new Event("storage"));
+        ShowNotif(
+          "Order Placed:",
+          "Your Order was placed successfully, thanks for shopping with us"
+        );
       }
     } catch (error) {
-      console.error("Error sending payment information to the server:", error);
+      ShowNotif("Error:", "Error sending payment information to the server");
     }
   }
 
@@ -101,34 +106,33 @@ export default function Checkout() {
 
   const validateAddressFields = () => {
     const errors = [];
-  
+
     if (addressName.length < 3) {
       errors.push("Name should be at least 3 characters");
     }
-  
+
     if (streetAddress.length < 3) {
       errors.push("Street Address should be at least 3 characters");
     }
-  
+
     if (town.length < 3) {
       errors.push("Town should be at least 3 characters");
     }
-  
+
     if (!pincode || pincode.toString().length < 3) {
       errors.push("Pincode should be at least 3 characters");
     }
-  
+
     if (!mobile || mobile.toString().length !== 10) {
       errors.push("Mobile number should be exactly 10 digits");
     }
-  
+
     if (!isEmailValid(email)) {
       errors.push("Invalid email address");
     }
-  
+
     return errors;
   };
-  
 
   const saveAddress = async () => {
     try {
@@ -172,19 +176,16 @@ export default function Checkout() {
     const errors = validateAddressFields();
 
     if (Object.keys(errors).length > 0) {
-      alert(errors);
+      ShowNotif("Error:", "Please input Address correctly");
       return;
     }
-
     const AddressJSON = await saveAddress();
-    console.log(AddressJSON);
 
     const dataaaa = JSON.stringify({
       items: cart,
       addressId: AddressJSON._id,
       paymentMethod: selectedPaymentMethod,
     });
-    console.log(dataaaa);
     fetch(`${baseURL}api/orders/create-order`, {
       method: "POST",
       headers: {
@@ -234,7 +235,13 @@ export default function Checkout() {
           const razorpayInstance = new window.Razorpay(options);
           razorpayInstance.open();
         } else {
-          console.log("Order Placed Successfully");
+          ShowNotif(
+            "Order Placed:",
+            "Your Order was placed successfully, thanks for shopping with us"
+          );
+          window.dispatchEvent(new Event("storage"));
+          localStorage.removeItem("cart");
+          navigate("/");
         }
       })
       .catch((error) => {
@@ -244,7 +251,7 @@ export default function Checkout() {
 
   return (
     <div className="row row-ow CheckOutDiv">
-      <div className="col-7 CheckOutDivHeader">
+      <div className="col-7 CheckOutDivHeader checkout-100">
         <b>Billing Details</b>
         <div className="inputs">
           <input
@@ -301,7 +308,7 @@ export default function Checkout() {
         </div>
       </div>
 
-      <div className="col-5">
+      <div className="col-5 checkout-100">
         <div className="CheckOutRightDiv">
           <div className="TotalPriceSubDiv1" style={{ marginTop: "60px" }}>
             <div className="TotalDivv1 d-flex">
@@ -317,7 +324,7 @@ export default function Checkout() {
               <label className="mx-2">{`₹‎${subtotal.toFixed(2)}`}</label>
             </div>
 
-            <div className="mb-3">
+            <div className="mb-3" style={{marginTop: '18px'}}>
               <label htmlFor="addressSelect" className="form-label">
                 Select Address
               </label>
@@ -342,7 +349,7 @@ export default function Checkout() {
               </select>
             </div>
 
-            <div>
+            <div style={{marginTop: '18px'}}>
               <div className="form-check form-m">
                 <input
                   className="form-check-input"

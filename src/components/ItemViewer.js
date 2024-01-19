@@ -12,6 +12,7 @@ export default function ItemViewer() {
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
+    window.dispatchEvent(new Event("storage"));
   }, [cart]);
 
   const addToCart = (item) => {
@@ -30,6 +31,7 @@ export default function ItemViewer() {
         return [...prevCart, { ...item, quantity: 1 }];
       }
     });
+    
   };
   
   const removeFromCart = (item) => {
@@ -125,7 +127,7 @@ export default function ItemViewer() {
         }}
       >
         <div
-          className="col-6"
+          className="col-6 IVMob"
           style={{
             height: "100%",
             alignContent: "center",
@@ -149,7 +151,7 @@ export default function ItemViewer() {
           />
         </div>
         <div
-          className="col-6"
+          className="col-6 IVMob"
           id="ItemDetails"
           style={{
             alignContent: "center",
