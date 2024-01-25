@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const pathname = useLocation().pathname;
@@ -8,6 +8,14 @@ export default function Navbar() {
   const [Categories, setCategories] = useState([]);
   const [cartData, setCartData] = useState([]);
   const [cartQuantity, setCartQuantity] = useState(0);
+  const [userName, setUser] = useState("");
+  const navigate = useNavigate();
+
+  const Logout = () => {
+    localStorage.removeItem("iz-auth-token");
+    navigate("/SignUp");
+
+  }
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -55,10 +63,31 @@ export default function Navbar() {
     };
   }, [cartQuantity]);
 
+  useEffect(() => {
+    if (authtoken) {
+      const getUser = async () => {
+        try {
+          const response = await fetch(`${baseURL}api/auth/GetUser`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "auth-token": authtoken,
+            },
+          });
+          const ResponseJSON = await response.json();
+          setUser(ResponseJSON.name);
+        } catch {
+          console.log("Error Fetching User");
+        }
+      };
+      getUser();
+    }
+  }, [authtoken]);
+
   return (
     <div>
       <div className="TopSaleBar">
-        Winter Sale! Get Upto 50% off on Latest Products
+        Winter Sale! Get Upto 30% off on Latest Products
       </div>
       <div>
         <nav className="NavBarMain d-flex">
@@ -78,22 +107,72 @@ export default function Navbar() {
                 >
                   Categories
                 </a>
-                <ul className="dropdown-menu" style={{width: 'auto', margin: '0', padding: '0'}}>
+                <ul
+                  className="dropdown-menu"
+                  style={{ width: "auto", margin: "0", padding: "0" }}
+                >
                   {Categories.map((item, index) => (
                     <React.Fragment key={index}>
-                      <li style={{textAlign: 'center', margin: '0'}}>
+                      <li style={{ textAlign: "center", margin: "0" }}>
                         <a
-                          className="dropdown-item" style={{padding: '8px 0'}}
+                          className="dropdown-item"
+                          style={{ padding: "8px 0" }}
                           href={`/Categories/${item.categoryName}`}
                         >
                           {item.categoryName}
                         </a>
                       </li>
                       {index < Categories.length - 1 && (
-                        <li role="separator" style={{margin: '0px 0px'}} className="dropdown-divider"></li>
+                        <li
+                          role="separator"
+                          style={{ margin: "0px 0px" }}
+                          className="dropdown-divider"
+                        ></li>
                       )}
                     </React.Fragment>
                   ))}
+                </ul>
+              </li>
+
+              <li className={`${pathname === "/Categories" ? "selected" : ""} ${
+                    authtoken ? "" : "Collapsed"
+                  }`}>
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Welcome {userName}
+                </a>
+                <ul
+                  className="dropdown-menu"
+                  style={{ width: "auto", margin: "0", padding: "0" }}
+                >
+                  <li style={{ textAlign: "center", margin: "0" }}>
+                  <Link
+                      className="dropdown-item"
+                      style={{ padding: "8px 0", borderBottom: '1px gray solid' }}
+                      to='/Account'
+                    >
+                      My Account
+                    </Link>
+                    <Link
+                      className="dropdown-item"
+                      style={{ padding: "8px 0", borderBottom: '1px gray solid' }}
+                      to='/Orders'
+                    >
+                      My Orders
+                    </Link>
+                    <button
+                      className="dropdown-item"
+                      style={{ padding: "8px 0"}}
+                      onClick={Logout}
+                    >
+                      Logout
+                    </button>
+                  </li>
                 </ul>
               </li>
               <li

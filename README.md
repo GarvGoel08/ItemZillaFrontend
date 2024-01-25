@@ -1,5 +1,10 @@
 # ItemZilla
 
+## [V1.4]
+-Added Accounts Page <br>
+-Added Orders Page<br>
+-Fixed Colors
+
 ## [V1.3.1]
 -Fixed Responsiveness of Login and Signup pages
 

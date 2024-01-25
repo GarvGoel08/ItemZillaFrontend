@@ -11,6 +11,8 @@ import Cart from "./components/Cart";
 import Checkout from "./components/Checkout";
 import AddItem from "./components/AddItem";
 import OTP from "./components/OTP";
+import OrderPage from "./components/OrderPage";
+import AccountInfo from "./components/AccountInfo";
 
 function App() {
   const [notificationTitle, SetNotificationTitle] = useState("");
@@ -60,6 +62,14 @@ function App() {
           <Route
             path="/OTP"
             element={<OTP ShowNotif={useNotification} />}
+          />
+          <Route
+            path="/Orders"
+            element={<OrderPage ShowNotif={useNotification} />}
+          />
+          <Route
+            path="/Account"
+            element={<AccountInfo ShowNotif={useNotification} />}
           />
         </Routes>
         <div id="notification" className={`notification-container ${notificationTitle === "Error:"?("NotifError"):("")} ${notificationTitle === ""?("Collapsed"):("")}`} >

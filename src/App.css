@@ -2,51 +2,72 @@ body {
   font-family: "Poppins", sans-serif;
   margin-bottom: 20px;
   margin: 0;
+  background-color: rgb(236 236 236);
+}
+.scroll-button {
+  height: 110px;
+  align-self: center;
+  font-size: 40px;
+  padding: 0 12px;
+  border: 0;
+  position: absolute;
+  color: rgb(86, 86, 86);
+  z-index: 2;
+  background-color: rgb(236 236 236);
+  border-radius: 10px 0 0 10px;
+  transition: color 0.3s ease;
 }
 
+.scroll-button:hover {
+  color: black;
+}
 
 @media (max-width: 1050px) {
-  .HeightOW{
-    height: auto!important;
+  .HeightOW {
+    height: auto !important;
   }
-  #LoginMain{
+  #LoginMain {
     margin-top: 64px;
     margin-bottom: 64px;
   }
-  .LoginImg{
-    max-height: 90%!important;
+  .LoginImg {
+    max-height: 90% !important;
   }
-  .checkout-100{
-    width: 100%!important;
+  .checkout-100 {
+    width: 100% !important;
   }
-  .TotalPriceSubDiv1{
-    margin: 30px 0!important;
+  .TotalPriceSubDiv1 {
+    margin: 30px 0 !important;
   }
-  .CartDiv{
+  .CartDiv {
     display: none;
   }
-  .CartItems{
+  .CartItems {
     margin-bottom: 7px;
     margin-top: 7px;
   }
-  .CartProceed{
-    margin: 34px 32px 16px 32px!important;
+  .CartProceed {
+    margin: 34px 32px 16px 32px !important;
   }
-  .PCCart{
+  .PCCart {
     display: none;
   }
-  .CartMainn{
+  .CartMainn {
     margin-top: 36px;
   }
-  .col-6{
-    width: 100%!important;
+  .col-6 {
+    width: 100% !important;
   }
-  .TotalPriceSubDiv{
-    margin: 0!important;
-    margin-top: 28px!important;
+  .TotalPriceSubDiv {
+    margin: 0 !important;
+    margin-top: 28px !important;
   }
-  .MobileCart{
-    display: flex!important;
+
+  .FeaturedDiv {
+    margin-left: 16px !important;
+  }
+  .MobileCart {
+    display: flex !important;
   }
   .NavBarMain {
     text-align: center;
@@ -55,13 +76,13 @@ body {
     margin-left: 0;
     margin-right: 0;
   }
-  #ItemDetails{
+  #ItemDetails {
     margin-top: 26px;
     margin-bottom: 26px;
   }
-  .IVMob{
-    width: 100%!important;
-    height: auto!important;
+  .IVMob {
+    width: 100% !important;
+    height: auto !important;
   }
   .NavBarMain h1 {
     margin-bottom: 10px;
@@ -107,26 +128,24 @@ body {
   justify-content: center;
 }
 
-.TotalPriceSubDiv{
+.TotalPriceSubDiv {
   margin: 0 60px;
   border: 1px gray solid;
   border-radius: 4px;
 }
-.TotalPriceSubDiv1{
+.TotalPriceSubDiv1 {
   margin: 0 60px;
   border-radius: 4px;
 }
 .NavBarMain {
-  margin-left: 60px;
-  margin-right: 30px;
-  margin-top: 25px;
+  background-color: white;
+  padding-left: 60px !important;
+  padding-right: 30px !important;
+  padding-top: 25px !important;
   z-index: 1000;
   padding-bottom: 10px;
   display: flex;
   align-items: center;
-}
-.FeaturedDiv{
-  margin-left: 16px!important;
 }
 
 .NavBarMain h1 {
@@ -174,7 +193,7 @@ nav li a {
   transition: background-color 0.3s ease;
 }
 
-.row-ow{
+.row-ow {
   margin: 0;
   padding: 0;
 }
@@ -187,7 +206,7 @@ nav .selected a {
   position: relative;
 }
 
-.LoginImg{
+.LoginImg {
   max-width: 80%;
 }
 nav .selected a::after {
@@ -200,16 +219,16 @@ nav .selected a::after {
   background-color: #000;
 }
 .FeaturedDiv {
-  margin: 30px 0 0 60px;
+  margin: 46px 16px 0 60px;
 }
-.rectRed{
+.rectRed {
   display: block;
   background-color: #db4444;
   height: 30px;
   width: 14px;
   border-radius: 4px;
 }
-.FeaturedDiv rect  {
+.FeaturedDiv rect {
   display: block;
   background-color: #db4444;
   height: 30px;
@@ -225,8 +244,11 @@ nav .selected a::after {
   font-size: Bold;
   font-size: 20px;
   margin-top: 12px;
+  margin-bottom: 18px;
 }
 .product-card {
+  border-radius: 12px;
+  background: white;
   display: inline-block;
   width: 200px;
   margin: 10px;
@@ -285,7 +307,7 @@ nav .selected a::after {
   padding: 3px 8px;
   border-radius: 8px;
 }
-#root{
+#root {
   height: 100vh;
 }
 .InfoBtnDiv {
@@ -303,7 +325,7 @@ nav .selected a::after {
   border-radius: 8px;
 }
 
-.InfoBtnDiv:hover{
+.InfoBtnDiv:hover {
   color: #db4444;
 }
 
@@ -337,22 +359,22 @@ nav .selected a::after {
   margin-right: 10px;
 }
 .button-category:hover {
-  background-color: #db4444; 
+  background-color: #db4444;
   color: white;
 }
-.authMain{
+.authMain {
   font-size: 36px;
 }
 
-.authSub{
+.authSub {
   font-size: 16px;
   margin-top: 18px;
   margin-bottom: 18px;
 }
 
-.authInput{
+.authInput {
   background-color: white;
-  border: 0!important;
+  border: 0 !important;
   width: 100%;
   font-size: 16px;
   line-height: 32px;
@@ -360,11 +382,11 @@ nav .selected a::after {
   margin-top: 24px;
 }
 
-.authInput:focus{
+.authInput:focus {
   outline: none;
 }
 
-.authButton{
+.authButton {
   background: #db4444;
   color: white;
   width: 100%;
@@ -374,48 +396,48 @@ nav .selected a::after {
   font-size: 16px;
 }
 
-.authButton:hover{
+.authButton:hover {
   background: #d80707;
 }
 
-.Collapsed{
-  display: none!important;
+.Collapsed {
+  display: none !important;
 }
 
-.authAhref{
+.authAhref {
   color: 16px;
   color: black;
   margin-left: 12px;
 }
 
-.ItemName{
+.ItemName {
   font-size: 24px;
   margin-top: 20px;
 }
 
-.Stock{
-  color: #00FF66;
+.Stock {
+  color: #00ff66;
   font-size: 14px;
   margin-top: 16px;
 }
 
-.ItemDescription{
+.ItemDescription {
   font-size: 14px;
   margin-top: 16px;
 }
 
-.PriceDiv{
+.PriceDiv {
   font-size: 24px;
   margin-top: 4px;
   color: gray;
 }
 
-.DiscountedPrice{
+.DiscountedPrice {
   margin-left: 12px;
   color: #db4444;
 }
 
-.DiscountItemDiv{
+.DiscountItemDiv {
   color: white;
   background-color: #db4444;
   margin-top: 16px;
@@ -425,7 +447,7 @@ nav .selected a::after {
   border-radius: 8px;
 }
 
-.AddCardtDiv{
+.AddCardtDiv {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -435,32 +457,30 @@ nav .selected a::after {
   border-radius: 3px;
 }
 
-.AddCartPageBtn{
+.AddCartPageBtn {
   justify-content: center;
   align-items: center;
   display: flex;
   border: 0;
   border-radius: 2px 0 0 2px;
   height: 38px;
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease;
 }
-.LabelPageInfroAC{
+.LabelPageInfroAC {
   font-size: 20px;
   padding: 0px 18px;
 }
 
-.bgdb{
-  background: #db4444;
-  border-radius: 0 2px 2px 0;
-  color: white;
-}
-.bgw{
+.bgw {
   border-right: 1px gray solid;
 }
-.bgw:hover{
+.bgw:hover {
   background: rgb(186, 186, 186);
 }
-.bgdb:hover{
+.bgdb:hover {
+  background: #d80707;
+}
+.bgdb1:hover {
   background: #d80707;
 }
 
@@ -480,11 +500,11 @@ nav .selected a::after {
   transition: background-color 0.3s ease;
 }
 
-.BuyNow:hover{
+.BuyNow:hover {
   background: #d80707;
 }
 
-#ItemDetails{
+#ItemDetails {
   overflow: auto;
   align-content: center;
   justify-content: left;
@@ -493,21 +513,21 @@ nav .selected a::after {
   padding-top: 20px;
 }
 
-.CartDiv{
+.CartDiv {
   margin: 40px 32px 16px 76px;
   border-bottom: 1px gray solid;
   padding-bottom: 12px;
 }
 
-.CartDiv1{
+.CartDiv1 {
   margin: 12px 32px 16px 76px;
   padding-bottom: 12px;
 }
-.CartHeadings{
+.CartHeadings {
   font-size: 16px;
 }
 
-.AddCardtDiv1{
+.AddCardtDiv1 {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -517,7 +537,7 @@ nav .selected a::after {
   border-radius: 3px;
 }
 
-.AddCartPageBtn1{
+.AddCartPageBtn1 {
   justify-content: center;
   align-items: center;
   display: flex;
@@ -525,79 +545,81 @@ nav .selected a::after {
   border-radius: 2px 0 0 2px;
   height: 28px;
   width: 32px;
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease;
 }
-.LabelPageInfroAC1{
+.LabelPageInfroAC1 {
   font-size: 16px;
   padding: 0px 12px;
 }
 
-.bgdb{
+.bgdb {
   background: #db4444;
   border-radius: 0 2px 2px 0;
   color: white;
 }
-.bgw{
+.bgdb1 {
+  background: #db4444;
+  border-radius: 0 2px 2px 0;
+  color: white;
+  padding: 0 30px;
+}
+.bgw {
   border-right: 1px gray solid;
 }
-.bgw:hover{
+.bgw:hover {
   background: rgb(186, 186, 186);
 }
-.bgdb:hover{
-  background: #d80707;
-}
 
-.CartItemDiv{
+.CartItemDiv {
   border-bottom: 1px gray solid;
   padding-bottom: 12px;
   margin: 12px 32px 16px 76px;
 }
 
-.CartProceed{
+.CartProceed {
   margin: 34px 32px 16px 76px;
-
 }
 
-.CheckOutRightDiv{
+.CheckOutRightDiv {
   margin-left: 12px;
 }
 
-.CouponButton{
+.CouponButton {
   background: #db4444;
   border-radius: 4px;
   color: white;
   border: 0;
   padding: 4px 26px;
-  transition: background-color 0.5s ease; 
+  transition: background-color 0.5s ease;
   height: 36px;
   text-wrap: nowrap;
 }
-.CouponButton:hover{
+.CouponButton:hover {
   background: #d80707;
 }
-.CartTotalTxt{
+.CartTotalTxt {
   margin: 20px 30px;
   font-size: 16px;
 }
-.TotalDivv{
+.TotalDivv {
   margin: 0 20px 10px 20px;
   font-size: 14px;
   padding-bottom: 10px;
   border-bottom: 1px gray solid;
 }
 
-.TotalDivv1{
+.TotalDivv1 {
   margin: 0 0 10px 0;
   font-size: 14px;
   padding-bottom: 10px;
   border-bottom: 1px gray solid;
 }
 
-.form-m{
+.form-m {
   margin-top: 10px;
 }
 
-.CheckoutButton{
+.CheckoutButton {
   background: #db4444;
   display: flex;
   align-items: center;
@@ -607,52 +629,52 @@ nav .selected a::after {
   color: white;
   border: 0;
   padding: 4px 26px;
-  transition: background-color 0.5s ease; 
+  transition: background-color 0.5s ease;
   height: 46px;
   margin-top: 8px;
   margin-bottom: 24px;
   text-wrap: nowrap;
 }
 
-.CheckoutButton:hover{
+.CheckoutButton:hover {
   background: #d80707;
 }
 
-.PlaceOrderButton{
+.PlaceOrderButton {
   background: #db4444;
   border-radius: 3px;
   margin-top: 24px;
   color: white;
   border: 0;
   padding: 2px 26px;
-  transition: background-color 0.5s ease; 
+  transition: background-color 0.5s ease;
   height: 46px;
   margin-bottom: 24px;
   text-wrap: nowrap;
 }
 
-.PlaceOrderButton:hover{
+.PlaceOrderButton:hover {
   background: #d80707;
 }
 
-.addInput{
+.addInput {
   border: gray 1px solid;
   font-size: 14px;
 }
 
-.CheckOutDiv{
+.CheckOutDiv {
   margin: 40px 30px 0 30px;
 }
 
-.CheckOutDivHeader{
+.CheckOutDivHeader {
   font-size: 24px;
 }
 
-.inputs{
+.inputs {
   margin-top: 26px;
 }
 
-.form-ow{
+.form-ow {
   margin-bottom: 18px;
   font-size: 16px;
 }
@@ -661,7 +683,7 @@ nav .selected a::after {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: #fff;
   padding: 15px;
   border-radius: 5px;
@@ -669,8 +691,8 @@ nav .selected a::after {
   animation: slideInUp 0.5s ease-out forwards;
 }
 
-.NotifError{
-  background-color: #d80707!important;
+.NotifError {
+  background-color: #d80707 !important;
   box-shadow: 0 0 10px rgba(216, 7, 7, 1.2);
 }
 
@@ -695,7 +717,7 @@ nav .selected a::after {
   font-size: 14px;
 }
 
-.CartQuantiy{
+.CartQuantiy {
   background: black;
   color: white;
   display: inline-block;
@@ -706,4 +728,122 @@ nav .selected a::after {
   right: 0px;
   margin-right: -15px;
   margin-top: -8px;
+}
+
+.OrderBoxMain{
+  border: 1px rgb(160, 160, 160) solid;
+  border-radius: 10px;
+  margin-bottom: 18px;
+  background-color: white;
+}
+
+.OrderBoxSub{
+  padding: 12px 26px;
+  display: flex;
+  border-radius: 10px 10px 0 0;
+  background: white;
+  border-bottom: 1px rgb(160, 160, 160) solid;
+}
+
+.OrderPlaced{
+  font-size: 14px;
+  margin-bottom: 2px;
+  color: rgb(83, 83, 83);
+}
+
+.OrderPlacedDate{
+  font-size: 16px;
+}
+
+.OrderNext{
+  margin-left: 40px;
+}
+
+.OrderDetailsMain{
+  padding: 14px 26px;
+}
+
+.OrderDetailsStatus{
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.OrderImg{
+  max-width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+.OrderDetailss{
+  width: 100%;
+}
+
+
+.OrderDetailsName{
+  font-size: 16px;
+  color: #007185;
+  text-decoration: none;
+}
+.OrderDetailsName:hover{
+  text-decoration: underline;
+}
+
+.PaymentStatus{
+  font-size: 14px;
+  color: #007600;
+  margin-bottom: 14px;
+}
+
+.OrderBoxButtons{
+  width: 100%;
+  border: 1px rgb(169, 169, 169) solid;
+  margin-top: 5px;
+  display: block;
+  text-decoration: none;
+  margin-bottom: 5px;
+  color: black;
+  text-align: center;
+  padding: 2px;
+  background: transparent;
+  border-radius: 6px;
+  transition: all 0.6s ease;
+}
+
+.OrderBoxButtons:hover{
+  background-color: white;
+  border: 1px #db4444 solid;
+}
+.SellerName{
+  font-size: 12px;
+  margin-top: 2px;
+  color: rgb(70, 70, 70);
+}
+
+.OrderPageDiv{
+  padding: 18px;
+}
+
+.AccountInfoDiv{
+  padding: 18px;
+}
+
+.AcccontInfoSubDiv{
+  margin-bottom: 16px;
+  background: white;
+  border: 1px rgb(169, 169, 169) solid;
+  padding: 16px 18px;
+  border-radius: 6px;
+}
+
+.EditButton{
+  background: white;
+  border: 1px rgb(169, 169, 169) solid;
+  padding: 2px 16px;
+  border-radius: 6px;
+  margin-left: auto;
+  margin-right: 0;
+  transition: all 0.6s ease;
+}
+
+.EditButton:hover{
+  background: rgb(228, 228, 228);
 }

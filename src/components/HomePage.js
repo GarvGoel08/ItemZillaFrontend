@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ItemBox from "./ItemBox";
 import CategoryBox from "./CategoryBox";
+import ScrollableContainer from "./ScrollableContainer";
 
-export default function HomePage() {
+
+const HomePage = () => {
   const [Items, setItems] = useState([]);
   const [Categories, setCategories] = useState([]);
   const [Loading, SetLoading] = useState(true);
   const [DealItems, setDealItems] = useState([]);
   const [OriginalItems, setOriginalItems] = useState([]);
   const baseURL = "https://itemzillabackend.onrender.com/";
+  const itemListRef = useRef(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,6 +33,7 @@ export default function HomePage() {
 
     fetchData();
   }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       SetLoading(true);
@@ -58,14 +63,19 @@ export default function HomePage() {
 
     fetchData();
   }, []);
+
   return (
     <>
       <div>
-        <div class={`spinner-border text-danger ${(Loading?(""):("Collapsed"))}`} style={{position: 'fixed', top: '50%', right: '50%'}} role="status" >
-          <span class="visually-hidden">Loading...</span>
+        <div
+          className={`spinner-border text-danger ${Loading ? "" : "Collapsed"}`}
+          style={{ position: "fixed", top: "50%", right: "50%" }}
+          role="status"
+        >
+          <span className="visually-hidden">Loading...</span>
         </div>
       </div>
-      <div className={`${(Loading?("Collapsed"):(""))}`}>
+      <div className={`${Loading ? "Collapsed" : ""}`}>
         <div className="FeaturedDiv">
           <div className="d-flex">
             <rect />
@@ -74,14 +84,11 @@ export default function HomePage() {
           <div className="FeaturedDivSubText">
             <b>Browse Today's Deals</b>
           </div>
-          <div
-            className="ItemList d-flex"
-            style={{ overflowX: "auto", scrollbarWidth: "thin" }}
-          >
-            {DealItems.map((item) => (
-              <ItemBox JSON={item} />
+          <ScrollableContainer>
+            {DealItems.map((item, index) => (
+              <ItemBox key={index} JSON={item} />
             ))}
-          </div>
+          </ScrollableContainer>
         </div>
         <div className="FeaturedDiv">
           <div className="d-flex">
@@ -91,13 +98,14 @@ export default function HomePage() {
           <div className="FeaturedDivSubText">
             <b>Browse Top Categories</b>
           </div>
-          <div className="ItemList d-flex" style={{ overflowX: "auto" }}>
+          <ScrollableContainer>
             {Categories.map((item) => (
-              <CategoryBox JSON={item} />
+              <CategoryBox key={item.id} JSON={item} />
             ))}
-          </div>
+            
+          </ScrollableContainer>
         </div>
-        <div className="FeaturedDiv">
+        <div className="FeaturedDiv" style={{paddingBottom: '40px'}}>
           <div className="d-flex">
             <rect />
             <div className="FeaturedDivText">Our Items:</div>
@@ -105,13 +113,15 @@ export default function HomePage() {
           <div className="FeaturedDivSubText">
             <b>Browse ItemZilla Originals</b>
           </div>
-          <div className="ItemList d-flex" style={{ overflowX: "auto" }}>
+          <ScrollableContainer>
             {OriginalItems.map((item) => (
-              <ItemBox JSON={item} />
+              <ItemBox key={item.id} JSON={item} />
             ))}
-          </div>
+            </ScrollableContainer>
         </div>
       </div>
     </>
   );
-}
+};
+
+export default HomePage;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import ItemBox from "./ItemBox";
+import ScrollableContainer from "./ScrollableContainer";
 
 export default function ItemViewer() {
   const baseURL = "https://itemzillabackend.onrender.com/";
@@ -8,7 +9,10 @@ export default function ItemViewer() {
   const [category, setCategory] = useState([]);
   const [items, setItems] = useState([]);
   const { ItemID } = useParams();
-  const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")) || []);
+  const Navigate = useNavigate();
+  const [cart, setCart] = useState(
+    JSON.parse(localStorage.getItem("cart")) || []
+  );
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
@@ -17,9 +21,37 @@ export default function ItemViewer() {
 
   const addToCart = (item) => {
     console.log(cart);
-    setCart(prevCart => {
-      const existingItem = prevCart.find((cartItem) => cartItem._id === item._id);
+    setCart((prevCart) => {
+      const existingItem = prevCart.find(
+        (cartItem) => cartItem._id === item._id
+      );
       console.log(item._id);
+
+      if (existingItem) {
+        return prevCart.map((cartItem) =>
+          cartItem._id === item._id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        );
+      } else {
+        return [...prevCart, { ...item, quantity: 1 }];
+      }
+    });
+    const AddcrtBtn = document.getElementById("AddCartBtn");
+    AddcrtBtn.innerText = "Added";
+    AddcrtBtn.disabled = true;
+
+    setTimeout(() => {
+      AddcrtBtn.innerText = "Add to Cart";
+      AddcrtBtn.disabled = false;
+    }, 2000);
+  };
+
+  const BuyNowHandle = (item) => {
+    setCart((prevCart) => {
+      const existingItem = prevCart.find(
+        (cartItem) => cartItem._id === item._id
+      );
   
       if (existingItem) {
         return prevCart.map((cartItem) =>
@@ -31,9 +63,14 @@ export default function ItemViewer() {
         return [...prevCart, { ...item, quantity: 1 }];
       }
     });
-    
-  };
   
+    // Use useNavigate to get the navigate function
+  
+    // Delay the navigation to allow the state update to complete
+    setTimeout(() => {
+      Navigate('/Cart');
+    }, 0);
+  };
   const removeFromCart = (item) => {
     setCart((prevCart) => {
       const updatedCart = prevCart
@@ -45,12 +82,11 @@ export default function ItemViewer() {
               }
             : cartItem
         )
-        .filter((cartItem) => cartItem.quantity > 0); 
-  
+        .filter((cartItem) => cartItem.quantity > 0);
+
       return updatedCart;
     });
   };
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -197,24 +233,25 @@ export default function ItemViewer() {
             <div className="d-flex">
               <div className="AddCardtDiv">
                 <button
-                  className="AddCartPageBtn bgw"
-                  disabled={cart.reduce((total, item) => (item._id === data._id) ? (total + item.quantity) : total, 0) === 0 ? true : false}
-                  onClick={() => removeFromCart(data)}
-                >
-                  <span className="material-symbols-outlined">remove</span>
-                </button>
-                <label className="LabelPageInfroAC">
-                {cart.reduce((total, item) => (item._id === data._id)?(total + item.quantity) : (total), 0)}
-                </label>
-                <button
-                  className="AddCartPageBtn bgdb"
-                  disabled={cart.reduce((total, item) => (item._id === data._id) ? (total + item.quantity) : total, 0) >= data.quantity ? true : false}
+                  className="AddCartPageBtn bgdb1"
+                  id="AddCartBtn"
+                  disabled={
+                    cart.reduce(
+                      (total, item) =>
+                        item._id === data._id ? total + item.quantity : total,
+                      0
+                    ) >= data.quantity
+                      ? true
+                      : false
+                  }
                   onClick={() => addToCart(data)}
                 >
-                  <span className="material-symbols-outlined">add</span>
+                  Add to Cart
                 </button>
               </div>
-              <Link to='/Cart' className="BuyNow">Buy Now</Link>
+              <button onClick={() => BuyNowHandle(data)} className="BuyNow">
+                Buy Now
+              </button>
             </div>
           </div>
         </div>
@@ -227,11 +264,11 @@ export default function ItemViewer() {
         <div className="FeaturedDivSubText">
           <b>Browse Items Similar to this</b>
         </div>
-        <div className="ItemList d-flex" style={{ overflowX: "auto" }}>
+        <ScrollableContainer>
           {items.map((item) =>
             item.type === data.type ? <ItemBox JSON={item} /> : null
           )}
-        </div>
+        </ScrollableContainer>
       </div>
     </>
   );
