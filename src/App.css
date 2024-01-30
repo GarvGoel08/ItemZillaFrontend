@@ -108,6 +108,12 @@ body {
     margin-top: 10px;
     margin-left: 0;
   }
+  .OrderNext{
+    margin: 12px 0 0 0!important;
+  }
+  .OrderBoxSub{
+    flex-direction: column;
+  }
 }
 
 .TopSaleBar {
@@ -730,14 +736,14 @@ nav .selected a::after {
   margin-top: -8px;
 }
 
-.OrderBoxMain{
+.OrderBoxMain {
   border: 1px rgb(160, 160, 160) solid;
   border-radius: 10px;
   margin-bottom: 18px;
   background-color: white;
 }
 
-.OrderBoxSub{
+.OrderBoxSub {
   padding: 12px 26px;
   display: flex;
   border-radius: 10px 10px 0 0;
@@ -745,55 +751,54 @@ nav .selected a::after {
   border-bottom: 1px rgb(160, 160, 160) solid;
 }
 
-.OrderPlaced{
+.OrderPlaced {
   font-size: 14px;
   margin-bottom: 2px;
   color: rgb(83, 83, 83);
 }
 
-.OrderPlacedDate{
+.OrderPlacedDate {
   font-size: 16px;
 }
 
-.OrderNext{
+.OrderNext {
   margin-left: 40px;
 }
 
-.OrderDetailsMain{
+.OrderDetailsMain {
   padding: 14px 26px;
 }
 
-.OrderDetailsStatus{
+.OrderDetailsStatus {
   font-weight: bold;
   font-size: 18px;
 }
 
-.OrderImg{
+.OrderImg {
   max-width: 100%;
   aspect-ratio: 1/1;
   object-fit: cover;
 }
-.OrderDetailss{
+.OrderDetailss {
   width: 100%;
 }
 
-
-.OrderDetailsName{
+.OrderDetailsName {
   font-size: 16px;
   color: #007185;
   text-decoration: none;
 }
-.OrderDetailsName:hover{
+.OrderDetailsName:hover {
   text-decoration: underline;
 }
 
-.PaymentStatus{
+.PaymentStatus {
   font-size: 14px;
   color: #007600;
   margin-bottom: 14px;
 }
 
-.OrderBoxButtons{
+.OrderBoxButtons {
   width: 100%;
   border: 1px rgb(169, 169, 169) solid;
   margin-top: 5px;
@@ -808,25 +813,25 @@ nav .selected a::after {
   transition: all 0.6s ease;
 }
 
-.OrderBoxButtons:hover{
+.OrderBoxButtons:hover {
   background-color: white;
   border: 1px #db4444 solid;
 }
-.SellerName{
+.SellerName {
   font-size: 12px;
   margin-top: 2px;
   color: rgb(70, 70, 70);
 }
 
-.OrderPageDiv{
+.OrderPageDiv {
   padding: 18px;
 }
 
-.AccountInfoDiv{
+.AccountInfoDiv {
   padding: 18px;
 }
 
-.AcccontInfoSubDiv{
+.AcccontInfoSubDiv {
   margin-bottom: 16px;
   background: white;
   border: 1px rgb(169, 169, 169) solid;
@@ -834,7 +839,7 @@ nav .selected a::after {
   border-radius: 6px;
 }
 
-.EditButton{
+.EditButton {
   background: white;
   border: 1px rgb(169, 169, 169) solid;
   padding: 2px 16px;
@@ -844,6 +849,11 @@ nav .selected a::after {
   transition: all 0.6s ease;
 }
 
-.EditButton:hover{
+.EditButton:hover {
   background: rgb(228, 228, 228);
+}
+
+.AccountInfoEdit {
+  background: white;
+  display: inline-block;
 }

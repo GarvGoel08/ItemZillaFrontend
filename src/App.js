@@ -13,6 +13,7 @@ import AddItem from "./components/AddItem";
 import OTP from "./components/OTP";
 import OrderPage from "./components/OrderPage";
 import AccountInfo from "./components/AccountInfo";
+import EditName from "./components/EditName";
 
 function App() {
   const [notificationTitle, SetNotificationTitle] = useState("");
@@ -70,6 +71,10 @@ function App() {
           <Route
             path="/Account"
             element={<AccountInfo ShowNotif={useNotification} />}
+          />
+          <Route
+            path="/EditName"
+            element={<EditName ShowNotif={useNotification} />}
           />
         </Routes>
         <div id="notification" className={`notification-container ${notificationTitle === "Error:"?("NotifError"):("")} ${notificationTitle === ""?("Collapsed"):("")}`} >

@@ -145,7 +145,7 @@ export default function (props) {
                   </div>
                 </div>
                 <div
-                  className="col-md-2 col-sm-9 col-5"
+                  className="col-md-2 col-sm-9 col-12"
                   style={{ alignItems: "center", display: "flex" }}
                 >
                   <div className="OrderDetailss">
