@@ -6,7 +6,7 @@ export default function Checkout(props) {
   const [cart, setCart] = useState(
     JSON.parse(localStorage.getItem("cart")) || []
   );
-  const baseURL = "https://itemzillabackend.onrender.com/";
+  const baseURL = "https://item-zilla-backend.vercel.app/";
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("cod");
   const authtoken = localStorage.getItem("iz-auth-token");
   const [subtotal, setSubtotal] = useState(0);

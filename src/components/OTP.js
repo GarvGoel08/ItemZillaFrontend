@@ -7,7 +7,7 @@ export default function OTP() {
   const authtoken = localStorage.getItem("iz-auth-token");
   const [otp, setotp] = useState("");
   const [Loading, setLoading] = useState(false);
-  const baseURL = "https://itemzillabackend.onrender.com/";
+  const baseURL = "https://item-zilla-backend.vercel.app/";
   const Navigate = useNavigate();
   useEffect(() => {
     if (authtoken) {

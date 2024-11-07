@@ -6,7 +6,7 @@ export default function Login() {
   const [Loading, setLoading] = useState(false);
   const [Email, setEmail] = useState("");
   const Navigate = useNavigate();
-  const baseURL = "https://itemzillabackend.onrender.com/";
+  const baseURL = "https://item-zilla-backend.vercel.app/";
   const [Pass, setPass] = useState("");
   useEffect(() => {
     if (authtoken) {

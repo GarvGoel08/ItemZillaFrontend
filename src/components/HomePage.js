@@ -10,7 +10,7 @@ const HomePage = () => {
   const [Loading, SetLoading] = useState(true);
   const [DealItems, setDealItems] = useState([]);
   const [OriginalItems, setOriginalItems] = useState([]);
-  const baseURL = "https://itemzillabackend.onrender.com/";
+  const baseURL = "https://item-zilla-backend.vercel.app/";
   const itemListRef = useRef(null);
 
   useEffect(() => {

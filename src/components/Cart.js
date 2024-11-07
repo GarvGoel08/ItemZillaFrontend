@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function Cart(props) {
   const [data, setData] = useState([]);
-  const baseURL = "https://itemzillabackend.onrender.com/";
+  const baseURL = "https://item-zilla-backend.vercel.app/";
   const { ShowNotif } = props;
   const navigate = useNavigate();
   const [cart, setCart] = useState(

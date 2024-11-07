@@ -11,7 +11,7 @@ export default function OrderPage() {
     const fetchOrders = async () => {
       try {
         const response = await fetch(
-          "https://itemzillabackend.onrender.com/api/orders/get-orders",
+          "https://item-zilla-backend.vercel.app/api/orders/get-orders",
           {
             headers: {
               "Content-Type": "application/json",

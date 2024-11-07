@@ -10,7 +10,7 @@ export default function AddItem() {
   const [price, setPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
   const [image, setImage] = useState(null);
-  const baseURL = "https://itemzillabackend.onrender.com/";
+  const baseURL = "https://item-zilla-backend.vercel.app/";
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [errors, setErrors] = useState([]);

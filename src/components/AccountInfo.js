@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 export default function AccountInfo() {
   const authtoken = localStorage.getItem("iz-auth-token");
-  const baseURL = "https://itemzillabackend.onrender.com/";
+  const baseURL = "https://item-zilla-backend.vercel.app/";
   const [user, setUser] = useState("");
 
   useEffect(() => {

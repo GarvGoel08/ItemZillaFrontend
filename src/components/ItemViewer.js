@@ -4,7 +4,7 @@ import ItemBox from "./ItemBox";
 import ScrollableContainer from "./ScrollableContainer";
 
 export default function ItemViewer() {
-  const baseURL = "https://itemzillabackend.onrender.com/";
+  const baseURL = "https://item-zilla-backend.vercel.app/";
   const [data, setData] = useState([]);
   const [category, setCategory] = useState([]);
   const [items, setItems] = useState([]);

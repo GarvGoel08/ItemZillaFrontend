@@ -6,7 +6,7 @@ export default function CategoryFilter() {
   const {categoryName} = useParams();
 
   const [Items, setItems] = useState([]);
-  const baseURL = "https://itemzillabackend.onrender.com/";
+  const baseURL = "https://item-zilla-backend.vercel.app/";
   useEffect(() => {
     const fetchData = async () => {
       try {

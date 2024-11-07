@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 export default function Navbar() {
   const pathname = useLocation().pathname;
   const authtoken = localStorage.getItem("iz-auth-token");
-  const baseURL = "https://itemzillabackend.onrender.com/";
+  const baseURL = "https://item-zilla-backend.vercel.app/";
   const [Categories, setCategories] = useState([]);
   const [cartData, setCartData] = useState([]);
   const [cartQuantity, setCartQuantity] = useState(0);

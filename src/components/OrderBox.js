@@ -50,7 +50,7 @@ export default function (props) {
     const fetchItemDetails = async () => {
       const promises = OrderJSON.Items.map(async (item) => {
         const response = await fetch(
-          `https://itemzillabackend.onrender.com/api/items/GetItem`,
+          `https://item-zilla-backend.vercel.app/api/items/GetItem`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -73,7 +73,7 @@ export default function (props) {
 
   const SellerContact = async (UserID) => {
     try {
-      const response = await fetch(`https://itemzillabackend.onrender.com/api/auth/GetSeller`, {
+      const response = await fetch(`https://item-zilla-backend.vercel.app/api/auth/GetSeller`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
